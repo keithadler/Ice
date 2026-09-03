@@ -164,6 +164,12 @@ extension CGImage {
         // to be converted to floating point (0 to 1). Makes more sense to
         // scale the count up to match the components, rather than scale
         // the components down to match the count.
+        // An image with no pixels at or above the alpha threshold has no
+        // average color. Returning here also prevents a division by zero.
+        guard count > 0 else {
+            return nil
+        }
+
         let scaledCount = CGFloat(count * 255)
 
         var components: [CGFloat] = [

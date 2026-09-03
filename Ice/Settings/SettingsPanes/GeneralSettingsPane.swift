@@ -301,7 +301,6 @@ struct GeneralSettingsPane: View {
             } label: {
                 HStack {
                     Text("Menu bar item spacing")
-                    BetaBadge()
                 }
             }
         }
