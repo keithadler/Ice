@@ -53,10 +53,18 @@ struct SettingsView: View {
                     sidebarItem(for: identifier)
                 }
             } header: {
-                Text("Ice")
-                    .font(.system(size: 36, weight: .medium))
-                    .foregroundStyle(.primary)
-                    .padding(.vertical, 5)
+                HStack(spacing: 8) {
+                    if let appIcon = NSImage(named: NSImage.applicationIconName) {
+                        Image(nsImage: appIcon)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 44, height: 44)
+                    }
+                    Text("Ice")
+                        .font(.system(size: 30, weight: .semibold))
+                        .foregroundStyle(.primary)
+                }
+                .padding(.vertical, 5)
             }
             .collapsible(false)
         }
@@ -87,14 +95,28 @@ struct SettingsView: View {
 
     @ViewBuilder
     private func sidebarItem(for identifier: SettingsNavigationIdentifier) -> some View {
-        Label {
+        HStack(spacing: 8) {
+            SidebarIconTile(
+                icon: icon(for: identifier),
+                color: tileColor(for: identifier),
+                size: sidebarItemHeight - 8
+            )
             Text(identifier.localized)
                 .font(.system(size: sidebarItemFontSize))
-                .padding(.leading, 2)
-        } icon: {
-            icon(for: identifier).view
         }
         .frame(height: sidebarItemHeight)
+    }
+
+    private func tileColor(for identifier: SettingsNavigationIdentifier) -> Color {
+        switch identifier {
+        case .general: .gray
+        case .menuBarLayout: .blue
+        case .menuBarAppearance: .pink
+        case .hotkeys: .orange
+        case .advanced: .indigo
+        case .help: .green
+        case .about: .cyan
+        }
     }
 
     private func icon(for identifier: SettingsNavigationIdentifier) -> IconResource {
@@ -107,5 +129,27 @@ struct SettingsView: View {
         case .help: .systemSymbol("questionmark.circle")
         case .about: .assetCatalog(.iceCubeStroke)
         }
+    }
+}
+
+/// A colored, rounded icon tile in the style of the System Settings sidebar.
+private struct SidebarIconTile: View {
+    let icon: IconResource
+    let color: Color
+    let size: CGFloat
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: size * 0.28, style: .continuous)
+            .fill(color.gradient)
+            .frame(width: size, height: size)
+            .overlay {
+                icon.image
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(.white)
+                    .padding(size * 0.2)
+            }
+            .shadow(color: .black.opacity(0.15), radius: 0.5, y: 0.5)
     }
 }
