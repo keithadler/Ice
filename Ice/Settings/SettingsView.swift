@@ -11,10 +11,10 @@ struct SettingsView: View {
 
     private var sidebarWidth: CGFloat {
         switch sidebarRowSize {
-        case .small: 190
-        case .medium: 210
-        case .large: 230
-        @unknown default: 210
+        case .small: 215
+        case .medium: 235
+        case .large: 255
+        @unknown default: 235
         }
     }
 
