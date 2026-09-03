@@ -78,6 +78,8 @@ struct SettingsView: View {
             HotkeysSettingsPane()
         case .advanced:
             AdvancedSettingsPane()
+        case .help:
+            HelpSettingsPane()
         case .about:
             AboutSettingsPane()
         }
@@ -102,6 +104,7 @@ struct SettingsView: View {
         case .menuBarAppearance: .systemSymbol("swatchpalette")
         case .hotkeys: .systemSymbol("keyboard")
         case .advanced: .systemSymbol("gearshape.2")
+        case .help: .systemSymbol("questionmark.circle")
         case .about: .assetCatalog(.iceCubeStroke)
         }
     }

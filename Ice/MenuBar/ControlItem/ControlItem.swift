@@ -509,6 +509,15 @@ final class ControlItem {
         checkForUpdatesItem.target = self
         menu.addItem(checkForUpdatesItem)
 
+        let helpItem = NSMenuItem(
+            title: String(localized: "Ice Help"),
+            action: #selector(showHelp),
+            keyEquivalent: "?"
+        )
+        helpItem.keyEquivalentModifierMask = .command
+        helpItem.target = self
+        menu.addItem(helpItem)
+
         menu.addItem(.separator())
 
         let quitItem = NSMenuItem(
@@ -520,6 +529,15 @@ final class ControlItem {
         menu.addItem(quitItem)
 
         return menu
+    }
+
+    /// Opens the settings window to the Help pane.
+    @objc private func showHelp() {
+        guard let appState else {
+            return
+        }
+        appState.navigationState.settingsNavigationIdentifier = .help
+        appState.openSettingsWindow()
     }
 
     /// Toggles the menu bar section associated with the given menu item.
