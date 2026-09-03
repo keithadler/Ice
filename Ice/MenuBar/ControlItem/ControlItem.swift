@@ -564,6 +564,15 @@ final class ControlItem {
         checkForUpdatesItem.target = self
         menu.addItem(checkForUpdatesItem)
 
+        let helpItem = NSMenuItem(
+            title: "Ice Help",
+            action: #selector(showHelp),
+            keyEquivalent: "?"
+        )
+        helpItem.keyEquivalentModifierMask = .command
+        helpItem.target = self
+        menu.addItem(helpItem)
+
         menu.addItem(.separator())
 
         let quitItem = NSMenuItem(
@@ -600,6 +609,15 @@ final class ControlItem {
     }
 
     /// Opens the settings window and checks for app updates.
+    /// Opens the settings window to the Help pane.
+    @objc private func showHelp() {
+        guard let appState else {
+            return
+        }
+        appState.navigationState.settingsNavigationIdentifier = .help
+        (NSApp.delegate as? AppDelegate)?.openSettingsWindow()
+    }
+
     @objc private func checkForUpdates() {
         guard let appState else {
             return

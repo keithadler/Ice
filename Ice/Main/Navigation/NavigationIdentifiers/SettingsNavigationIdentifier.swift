@@ -10,6 +10,7 @@ enum SettingsNavigationIdentifier: String, NavigationIdentifier {
     case menuBarAppearance = "Menu Bar Appearance"
     case hotkeys = "Hotkeys"
     case advanced = "Advanced"
+    case help = "Help"
     case about = "About"
 
     var iconResource: IconResource {
@@ -19,6 +20,7 @@ enum SettingsNavigationIdentifier: String, NavigationIdentifier {
         case .menuBarAppearance: .systemSymbol("swatchpalette")
         case .hotkeys: .systemSymbol("keyboard")
         case .advanced: .systemSymbol("gearshape.2")
+        case .help: .systemSymbol("questionmark.circle")
         case .about: .assetCatalog(.iceCubeStroke)
         }
     }
