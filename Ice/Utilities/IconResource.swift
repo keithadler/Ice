@@ -22,7 +22,7 @@ enum IconResource: Hashable {
     }
 
     /// The image produced by the resource.
-    private var image: Image {
+    var image: Image {
         switch self {
         case .systemSymbol(let name):
             Image(systemName: name)
